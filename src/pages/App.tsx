@@ -64,7 +64,7 @@ function App() {
       // const usdcBalace = await (window as any).tokenContract.balanceOf(userAddress)
       console.log((window as any).tokenContract)
 
-      // setUsdc(usdcBalace.toString())
+      setUsdc(0.0)
       setProvider(provider);
       setLibrary(library);
     } catch (error) {
