@@ -6,6 +6,7 @@ import React, { CSSProperties } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import PulseLoader from 'react-spinners/PulseLoader'
+import { TextField } from '@mui/material'
 
 import { ethers } from 'ethers'
 import Web3modal from 'web3modal'
@@ -67,7 +68,9 @@ function App() {
       };
 
       const handleDisconnect = () => {
-        // disconnect();
+        web3Modal.clearCachedProvider();
+        setAccount(null)
+        console.log(library)
         console.log(account)
       };
 
@@ -127,8 +130,17 @@ function App() {
             <div className='white me-3'>{usdc + " USDC"}</div>
             <img src={USDC} alt="eth" width={30} height={30} />
           </div></>}
-        <div className="d-flex justify-content-around mb-4">
-          <Button className='connect-btn' onClick={() => fetchData(apis.nft)}>Fetch NFT</Button>
+        <div className="d-flex justify-content-around mb-4 align-items-center">
+          <TextField
+            id="filled-helperText"
+            label="Helper text"
+            defaultValue="Default Value"
+            variant="filled"
+            className='white'
+          />
+          <div>
+            <Button className='connect-btn' onClick={() => fetchData(apis.nft)}>Fetch NFT</Button>
+          </div>
         </div>
         <DisplayBoard data={data} />
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
