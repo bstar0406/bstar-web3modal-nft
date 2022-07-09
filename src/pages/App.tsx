@@ -129,13 +129,6 @@ function App() {
             <img src={USDC} alt="eth" width={30} height={30} />
           </div></>}
         <div className="d-flex justify-content-around mb-4 align-items-center">
-          <TextField
-            id="filled-helperText"
-            label="Helper text"
-            defaultValue="Default Value"
-            variant="filled"
-            className='white'
-          />
           <div>
             <Button className='connect-btn' onClick={() => fetchData(apis.nft)}>Fetch NFT</Button>
           </div>
