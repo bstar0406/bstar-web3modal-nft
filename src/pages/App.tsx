@@ -60,7 +60,7 @@ function App() {
         tokenABI,
         (window as any).signer,
       );
-      const userAddress = await library.getSigner().getAddress()
+      // const userAddress = await library.getSigner().getAddress()
       // const usdcBalace = await (window as any).tokenContract.balanceOf(userAddress)
       console.log((window as any).tokenContract)
 
