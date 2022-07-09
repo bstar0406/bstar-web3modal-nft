@@ -12,8 +12,8 @@ const DisplayBoard = ({ data }: IPropsDisplayBoard) => {
           <div className='card-title d-flex justify-content-center align-items-center'>
             <div>{item.name}</div>
           </div>
-          <div className="d-flex justify-content-center">
-            <img src={item.image_url} alt='nft_image' width={278} height={300} />
+          <div className="d-flex justify-content-center p-4">
+            <img src={item.image_url} alt='nft_image' width={230} height={250} />
           </div>
           {/* <div className='card-bottom d-flex justify-content-center align-items-center'>
             <div>{item.name}</div>

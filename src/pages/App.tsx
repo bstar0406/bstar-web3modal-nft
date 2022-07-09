@@ -9,6 +9,8 @@ import PulseLoader from 'react-spinners/PulseLoader'
 
 import { ethers } from 'ethers'
 import Web3modal from 'web3modal'
+import Eth from '../assets/images/eth.svg'
+import USDC from '../assets/images/usdc.svg'
 const override: CSSProperties = {
   display: 'block',
   margin: '0 auto',
@@ -32,8 +34,8 @@ function App() {
   const [provider, setProvider] = React.useState<any>();
   const [library, setLibrary] = React.useState<any>();
   const [account, setAccount] = React.useState<any>();
-  const [network, setNetwork] = React.useState<any>();
-  const [balance, setBalance] = React.useState<any>();
+  const [balance, setBalance] = React.useState<any>(0.0);
+  const [usdc, setUsdc] = React.useState<any>(0.0);
   const web3Modal = new Web3modal();
   const connectWallet = async () => {
     try {
@@ -43,9 +45,10 @@ function App() {
       setProvider(provider);
       setLibrary(library);
       if (accounts) setAccount(accounts[0]);
-      (library as any).getBalance(accounts[0]).then((balance:any)=>{
+      (library as any).getBalance(accounts[0]).then((balance: any) => {
         const balanceInEth = ethers.utils.formatEther(balance)
-        console.log(`balance: ${balanceInEth} ETH`)
+        setBalance(balanceInEth)
+        setUsdc(balanceInEth)
       })
     } catch (error) {
       console.error(error);
@@ -53,22 +56,21 @@ function App() {
   };
   const disconnect = async () => {
     await web3Modal.clearCachedProvider();
+    setAccount(null)
+    console.log(library)
   };
   React.useEffect(() => {
     if ((provider as any)?.on) {
       const handleAccountsChanged = (accounts: any) => {
         console.log(accounts)
-
         setAccount(accounts);
       };
-
 
       const handleDisconnect = () => {
         disconnect();
         console.log(account)
-
       };
-      
+
       (provider as any).on("accountsChanged", handleAccountsChanged);
       (provider as any).on("disconnect", handleDisconnect);
 
@@ -112,18 +114,21 @@ function App() {
       </div>}
       <div className='intro-section px-3 py-3'>
         <div className='py-2 px-3 d-flex justify-content-end align-items-center'>
-          <div className='white me-3'>{account?account.toString().substring(0,10)+"...":'Not connection'}</div>
-          {!account && <Button className='connect-btn' onClick={()=>connectWallet()}>Connect</Button>}
-          {account && <Button className='connect-btn' onClick={()=>disconnect()}>Disconnect</Button>}
+          <div className='white me-3'>{account ? account.toString().substring(0, 10) + "..." : 'Not connection'}</div>
+          {!account && <Button className='connect-btn' onClick={() => connectWallet()}>Connect</Button>}
+          {account && <Button className='connect-btn' onClick={() => disconnect()}>Disconnect</Button>}
         </div>
+        {account && <>
+          <div className='py-2 px-3 d-flex justify-content-end align-items-center'>
+            <div className='white me-3'>{balance + " ETH"}</div>
+            <img src={Eth} alt="eth" width={30} height={30} />
+          </div>
+          <div className='py-2 px-3 d-flex justify-content-end align-items-center'>
+            <div className='white me-3'>{usdc + " USDC"}</div>
+            <img src={USDC} alt="eth" width={30} height={30} />
+          </div></>}
         <div className="d-flex justify-content-around mb-4">
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => fetchData(apis.nft)}
-          >
-            Fetch NFT
-          </Button>
+          <Button className='connect-btn' onClick={() => fetchData(apis.nft)}>Fetch NFT</Button>
         </div>
         <DisplayBoard data={data} />
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
