@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: rgb(16, 18, 34) !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.MuiDataGrid-columnHeader:focus-within, .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+.app{
+  background: rgb(16, 18, 34);
+  min-height: 100vh;
+  position: relative;
+  .intro-section{
+      background-image: url(../images/background.png);
+      background-size: cover;
+      background-repeat: round;
+      height: 100vh;
+  }
+}
+.spinner{
+  position: absolute !important;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.753);
+  z-index: 100;
+}
+
+.connect-btn {
+  padding: 8px 18.5px;
+  background: linear-gradient(rgb(255, 170, 78) 0%, rgb(244, 92, 14) 100%);
+  box-shadow: rgb(249 131 75 / 80%) 2px 2px 50px -5px;
+  border-radius: 24px !important;
+  width:120px;
+  color: white !important;
+  font-weight: bolder !important;
+  text-align: center;
+}
+
+.white{
+  color: white;
+  font-weight: bold;
+}
+
+.header{
+  border: 2px solid white;
+  border-radius: 15px;
+  position: fixed;
+  width: 1000px;
+}
+
+.card{
+  width: 280px !important;
+  height: 350px !important;
+  background: rgb(27, 32, 48) !important;
+  border-radius: 14px;
+  width: 100%;
+  transition: box-shadow 0.3s ease-in-out 0s;
+  &:hover{
+    box-shadow: 0px 0px 10px 5px rgba(15, 136, 206, 0.75);
+  }
+}
+
+.card-title{
+  height:50px;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+  font-size: larger;
+  border-bottom: 1px solid rgb(43, 55, 85);
+  margin-bottom: 0px !important;
+}
+.card-bottom{
+  height:50px;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+  font-size: larger;
+  border-top: 1px solid rgb(43, 55, 85);
+  margin-bottom: 0px !important;
+}
