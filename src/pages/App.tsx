@@ -60,28 +60,28 @@ function App() {
     console.log(library)
   };
   React.useEffect(() => {
-    if ((provider as any)?.on) {
+    if ((library as any)?.on) {
       const handleAccountsChanged = (accounts: any) => {
         console.log(accounts)
         setAccount(accounts);
       };
 
       const handleDisconnect = () => {
-        disconnect();
+        // disconnect();
         console.log(account)
       };
 
-      (provider as any).on("accountsChanged", handleAccountsChanged);
-      (provider as any).on("disconnect", handleDisconnect);
+      (library as any).on("accountsChanged", handleAccountsChanged);
+      (library as any).on("disconnect", handleDisconnect);
 
       return () => {
-        if ((provider as any).removeListener) {
-          (provider as any).removeListener("accountsChanged", handleAccountsChanged);
-          (provider as any).removeListener("disconnect", handleDisconnect);
+        if ((library as any).removeListener) {
+          (library as any).removeListener("accountsChanged", handleAccountsChanged);
+          (library as any).removeListener("disconnect", handleDisconnect);
         }
       };
     }
-  }, [data])
+  }, [data, account, library, provider])
   React.useEffect(() => {
     setColor('#36D7B7')
   }, [])
