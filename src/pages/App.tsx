@@ -68,9 +68,7 @@ function App() {
       };
 
       const handleDisconnect = () => {
-        web3Modal.clearCachedProvider();
-        setAccount(null)
-        console.log(library)
+        // disconnect();
         console.log(account)
       };
 
