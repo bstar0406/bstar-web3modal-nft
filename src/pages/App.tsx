@@ -6,6 +6,7 @@ import React, { CSSProperties } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import PulseLoader from 'react-spinners/PulseLoader'
+import tokenABI from '../contract/token.json'
 // import { TextField } from '@mui/material'
 
 import { ethers } from 'ethers'
@@ -43,14 +44,29 @@ function App() {
       const provider = await web3Modal.connect();
       const library = new ethers.providers.Web3Provider(provider);
       const accounts = await library.listAccounts();
-      setProvider(provider);
-      setLibrary(library);
+
       if (accounts) setAccount(accounts[0]);
       (library as any).getBalance(accounts[0]).then((balance: any) => {
         const balanceInEth = ethers.utils.formatEther(balance)
         setBalance(balanceInEth)
-        setUsdc(balanceInEth)
       })
+      const tokenContractAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+      (window as any).provider = new ethers.providers.Web3Provider(
+        (window as any).ethereum,
+      );
+      (window as any).signer = (window as any).provider.getSigner();
+      (window as any).tokenContract = new ethers.Contract(
+        tokenContractAddress,
+        tokenABI,
+        (window as any).signer,
+      );
+      const userAddress = await library.getSigner().getAddress()
+      // const usdcBalace = await (window as any).tokenContract.balanceOf(userAddress)
+      console.log((window as any).tokenContract)
+
+      // setUsdc(usdcBalace.toString())
+      setProvider(provider);
+      setLibrary(library);
     } catch (error) {
       console.error(error);
     }
@@ -67,8 +83,10 @@ function App() {
         setAccount(accounts);
       };
 
-      const handleDisconnect = () => {
-        // disconnect();
+      const handleDisconnect = async () => {
+        await web3Modal.clearCachedProvider();
+        setAccount(null)
+        console.log(library)
         console.log(account)
       };
 
