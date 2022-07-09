@@ -77,6 +77,9 @@ function App() {
     console.log(library)
   };
   React.useEffect(() => {
+    setColor('#36D7B7')
+  }, [])
+  React.useEffect(() => {
     if ((library as any)?.on) {
       const handleAccountsChanged = (accounts: any) => {
         console.log(accounts)
@@ -84,7 +87,7 @@ function App() {
       };
 
       const handleDisconnect = async () => {
-        await web3Modal.clearCachedProvider();
+        // await web3Modal.clearCachedProvider();
         setAccount(null)
         console.log(library)
         console.log(account)
@@ -101,9 +104,7 @@ function App() {
       };
     }
   }, [data, account, library, provider])
-  React.useEffect(() => {
-    setColor('#36D7B7')
-  }, [])
+ 
   const fetchData = async (url: any) => {
     setLoading(true)
     const tempData: any = await getDataAsync(url)
