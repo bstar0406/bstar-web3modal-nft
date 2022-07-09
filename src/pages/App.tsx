@@ -50,7 +50,7 @@ function App() {
         const balanceInEth = ethers.utils.formatEther(balance)
         setBalance(balanceInEth)
       })
-      const tokenContractAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+      const tokenContractAddress = '0x0882477e7895bdC5cea7cB1552ed914aB157Fe56';
       (window as any).provider = new ethers.providers.Web3Provider(
         (window as any).ethereum,
       );
@@ -61,7 +61,7 @@ function App() {
         (window as any).signer,
       );
       // const userAddress = await library.getSigner().getAddress()
-      // const usdcBalace = await (window as any).tokenContract.balanceOf(userAddress)
+      // const usdcBalace = await (window as any).tokenContract.balanceOf('0x867D42C723523Fb2aA16EB603C499a5A25A31EbB')
       console.log((window as any).tokenContract)
 
       setUsdc(0.0)
