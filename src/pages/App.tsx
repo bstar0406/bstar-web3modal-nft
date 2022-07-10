@@ -38,6 +38,8 @@ function App() {
   const [account, setAccount] = React.useState<any>();
   const [balance, setBalance] = React.useState<any>(0.0);
   const [usdc, setUsdc] = React.useState<any>(0.0);
+  const [next, setNext] =  React.useState<string>('');
+  const [previous, setPrevious] =  React.useState<string>('');
   const web3Modal = new Web3modal();
   const connectWallet = async () => {
     try {
@@ -78,6 +80,7 @@ function App() {
   };
   React.useEffect(() => {
     setColor('#36D7B7')
+    fetchData('')
   }, [])
   React.useEffect(() => {
     if ((library as any)?.on) {
@@ -107,9 +110,11 @@ function App() {
  
   const fetchData = async (url: any) => {
     setLoading(true)
-    const tempData: any = await getDataAsync(url)
+    const tempData: any = await getDataAsync(apis.nft+url)
     setLoading(false)
-    setData(tempData)
+    setData(tempData.assets)
+    setNext(tempData.next)
+    setPrevious(tempData.previous?tempData.previous:'')
     setSuccess(true)
     setOpen(true)
   }
@@ -148,9 +153,9 @@ function App() {
             <img src={USDC} alt="eth" width={30} height={30} />
           </div></>}
         <div className="d-flex justify-content-around mb-4 align-items-center">
-          <div>
-            <Button className='connect-btn' onClick={() => fetchData(apis.nft)}>Fetch NFT</Button>
-          </div>
+        <Button className='connect-btn' onClick={() => fetchData(previous)}>Previous</Button>
+            <Button className='connect-btn' onClick={() => fetchData(next)}>Next</Button>
+
         </div>
         <DisplayBoard data={data} />
         <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

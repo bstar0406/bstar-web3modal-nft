@@ -1,3 +1,3 @@
 export const apis = {
-    nft:'https://testnets-api.opensea.io/api/v1/assets'
+    nft:'https://testnets-api.opensea.io/api/v1/assets/?cursor='
 }
