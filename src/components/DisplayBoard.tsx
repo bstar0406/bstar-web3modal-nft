@@ -16,10 +16,8 @@ const initiateFlase:Array<boolean>=[false,false,false,false,false,false,false,fa
 const DisplayBoard = ({ data }: IPropsDisplayBoard) => {
   const [loaded, setLoaded] = React.useState<Array<boolean>>(initiateFlase);
   React.useEffect(()=>{
-    let temp:Array<boolean>=loaded;
-    for(var i=0;i<data.length;i++)
-      temp[i] = false;
-    setLoaded(temp)
+
+    setLoaded(initiateFlase)
   },[data])
 
   const changeLoadedState = (num:number) =>{
