@@ -52,21 +52,35 @@ function App() {
         const balanceInEth = ethers.utils.formatEther(balance)
         setBalance(balanceInEth)
       })
-      const tokenContractAddress = '0x0882477e7895bdC5cea7cB1552ed914aB157Fe56';
-      (window as any).provider = new ethers.providers.Web3Provider(
-        (window as any).ethereum,
-      );
-      (window as any).signer = (window as any).provider.getSigner();
-      (window as any).tokenContract = new ethers.Contract(
-        tokenContractAddress,
-        tokenABI,
-        (window as any).signer,
-      );
+      // const tokenContractAddress = '0x0882477e7895bdC5cea7cB1552ed914aB157Fe56';
+      // (window as any).provider = new ethers.providers.Web3Provider(
+      //   (window as any).ethereum,
+      // );
+      // (window as any).signer = (window as any).provider.getSigner();
+      // (window as any).tokenContract = new ethers.Contract(
+      //   tokenContractAddress,
+      //   tokenABI,
+      //   (window as any).signer,
+      // );
       // const userAddress = await library.getSigner().getAddress()
       // const usdcBalace = await (window as any).tokenContract.balanceOf('0x867D42C723523Fb2aA16EB603C499a5A25A31EbB')
-      console.log((window as any).tokenContract)
+      // console.log((window as any).tokenContract)
+      const usdcProvider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
-      setUsdc(0.0)
+      const usdc = {
+        address: "0x377533d0e68a22cf180205e9c9ed980f74bc5050",
+        abi: tokenABI
+      };
+
+      await usdcProvider.send("eth_requestAccounts", []);
+      const signer = usdcProvider.getSigner();
+      let userAddress = await signer.getAddress();
+      const usdcContract = new ethers.Contract(usdc.address, usdc.abi, signer);
+      // let contractName = await usdcContract.name();
+      let usdcBalance = await usdcContract.balanceOf(userAddress);
+      // usdcBalance = ethers.utils.formatUnits(usdcBalance, 6);
+      console.log(usdcBalance)
+      setUsdc(usdcBalance)
       setProvider(provider);
       setLibrary(library);
     } catch (error) {
@@ -76,7 +90,6 @@ function App() {
   const disconnect = async () => {
     await web3Modal.clearCachedProvider();
     setAccount(null)
-    console.log(library)
   };
   React.useEffect(() => {
     setColor('#36D7B7')
@@ -85,7 +98,6 @@ function App() {
   React.useEffect(() => {
     if ((library as any)?.on) {
       const handleAccountsChanged = (accounts: any) => {
-        console.log(accounts)
         setAccount(accounts);
       };
 
