@@ -1,4 +1,5 @@
 import React, { CSSProperties } from 'react'
+
 import PulseLoader from 'react-spinners/PulseLoader'
 interface IPropsDisplayBoard {
   data: any
